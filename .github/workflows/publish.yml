@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - master
+    paths:
+      - '.github/workflows/publish.yml'
+      - 'src/**'
+      - 'build/**'
+      - 'tests/**'
   workflow_dispatch:
 
 env:
