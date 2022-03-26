@@ -22,19 +22,19 @@ dotnet add package Aragas.Extensions.Options.FluentValidation
 ### Standard Usage
 Simply change the code you most likely used to do like this:
 ```csharp
-    public sealed class SomeOptionsValidator : AbstractValidator<SomeOptions>
+public sealed class SomeOptionsValidator : AbstractValidator<SomeOptions>
+{
+    public SomeOptionsValidator()
     {
-        public SomeOptionsValidator()
-        {
-            RuleFor(x => x.Host).IsUri().IsUrlTcpEndpointAvailable().When(x => x.Enabled);
-        }
+       RuleFor(x => x.Host).IsUri().IsUrlTcpEndpointAvailable().When(x => x.Enabled);
     }
+}
 
-    public sealed record SomeOptions
-    {
-        public bool Enabled { get; init; } = default!;
-        public string Host { get; init; } = default!;
-    }
+public sealed record SomeOptions
+{
+    public bool Enabled { get; init; } = default!;
+    public string Host { get; init; } = default!;
+}
 
 
 // Old code
@@ -46,19 +46,19 @@ services.AddValidatedOptions<SomeOptions, SomeOptionsValidator>(ctx.Configuratio
 ### HttpClient Usage
 You can inject and configure a HttpClient in the validator
 ```csharp
-    public sealed class SomeHttpOptionsValidator : AbstractValidator<SomeHttpOptions>
+public sealed class SomeHttpOptionsValidator : AbstractValidator<SomeHttpOptions>
+{
+    public SomeOptionsValidator(HttpClient client)
     {
-        public SomeOptionsValidator(HttpClient client)
-        {
-            RuleFor(x => x.Url).IsUri().IsUrlAvailable(client).When(x => x.Enabled);
-        }
+        RuleFor(x => x.Url).IsUri().IsUrlAvailable(client).When(x => x.Enabled);
     }
+}
 
-    public sealed record SomeHttpOptions
-    {
-        public bool Enabled { get; init; } = default!;
-        public string Url { get; init; } = default!;
-    }
+public sealed record SomeHttpOptions
+{
+    public bool Enabled { get; init; } = default!;
+    public string Url { get; init; } = default!;
+}
 
 
 // Old code
@@ -71,4 +71,32 @@ services.AddValidatedOptionsWithHttp<SomeOptions, SomeOptionsValidator>(ctx.Conf
         client.Timeout = TimeSpan.FromSeconds(30);
     });
 });
+```
+
+### Dependency Injection Usage
+You can inject a custom dependency and easily retrieve it in the validator
+```csharp
+public sealed class CustomService
+{
+    public bool IsValid(string str) => str.Contains("Hello World!");
+}
+
+public sealed class SomeDIOptionsValidator : AbstractValidator<SomeDIOptions>
+{
+    public SomeDIOptionsValidator(CustomService cs)
+    {
+        RuleFor(x => x.Url).IsUri().When(x => cs.IsValid(x.ToVerify));
+    }
+}
+
+public sealed record SomeDIOptions
+{
+    public string ToVerify { get; init; } = default!;
+    public string Url { get; init; } = default!;
+}
+// Old code
+services.Configure<SomeDIOptions>(ctx.Configuration.GetSection("SomeDIOptions"));
+// New code
+services.AddTransient<CustomService>();
+services.AddValidatedOptions<SomeDIOptions, SomeDIOptionsValidator>(ctx.Configuration.GetSection("SomeDIOptions"));
 ```
