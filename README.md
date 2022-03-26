@@ -2,7 +2,7 @@
 
 [![Publish](https://github.com/Aragas/Aragas.Extensions.Options.FluentValidation/actions/workflows/publish.yml/badge.svg)](https://github.com/Aragas/Aragas.Extensions.Options.FluentValidation/actions/workflows/publish.yml)
 [![Daily Code Format Check](https://github.com/Aragas/Aragas.Extensions.Options.FluentValidation/actions/workflows/dotnet-format-daily.yml/badge.svg)](https://github.com/Aragas/Aragas.Extensions.Options.FluentValidation/actions/workflows/dotnet-format-daily.yml)
-[![NuGet](http://img.shields.io/nuget/v/Serilog.svg?style=flat)](https://www.nuget.org/packages/Aragas.Extensions.Options.FluentValidation/) 
+[![NuGet](http://img.shields.io/nuget/v/Aragas.Extensions.Options.FluentValidation.svg?style=flat)](https://www.nuget.org/packages/Aragas.Extensions.Options.FluentValidation/) 
   
 Validates ASP NET Core IOptions at startup via FluentValidation. If the options are not valid,
 will throw an exception detailing what's wrong with the options and stop the app's execution.
