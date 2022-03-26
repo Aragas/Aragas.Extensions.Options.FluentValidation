@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aragas.Extensions.Options.FluentValidation", "Aragas.Extensions.Options.FluentValidation\Aragas.Extensions.Options.FluentValidation.csproj", "{0084FBA0-090D-481E-A297-F5814038FEE4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{50FDC905-821F-4922-BAC7-613FAB0B5051}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{2CB313E9-B45B-4393-A0C0-BE2F7E4D4F9B}"
+	ProjectSection(SolutionItems) = preProject
+		..\.editorconfig = ..\.editorconfig
+		..\LICENSE.txt = ..\LICENSE.txt
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{64EC25FF-5FE6-4065-A619-1A2EC15348C0}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\dotnet-format-daily.yml = ..\.github\workflows\dotnet-format-daily.yml
+		..\.github\workflows\publish.yml = ..\.github\workflows\publish.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0084FBA0-090D-481E-A297-F5814038FEE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0084FBA0-090D-481E-A297-F5814038FEE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0084FBA0-090D-481E-A297-F5814038FEE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0084FBA0-090D-481E-A297-F5814038FEE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0084FBA0-090D-481E-A297-F5814038FEE4} = {50FDC905-821F-4922-BAC7-613FAB0B5051}
+		{50FDC905-821F-4922-BAC7-613FAB0B5051} = {2CB313E9-B45B-4393-A0C0-BE2F7E4D4F9B}
+		{64EC25FF-5FE6-4065-A619-1A2EC15348C0} = {2CB313E9-B45B-4393-A0C0-BE2F7E4D4F9B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACB5AE78-CBE3-4F8E-9262-030E9675F536}
+	EndGlobalSection
+EndGlobal

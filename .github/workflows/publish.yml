@@ -1,0 +1,51 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  # Disable the .NET logo in the console output.
+  DOTNET_NOLOGO: true
+  # Disable the .NET first time experience to skip caching NuGet packages and speed up the build.
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending .NET CLI telemetry to Microsoft.
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    name: Publish to NuGet and GPR
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup .NET 3.1
+      uses: actions/setup-dotnet@master
+      with:
+        dotnet-version: 3.1.x
+
+    - name: Setup .NET 5
+      uses: actions/setup-dotnet@master
+      with:
+        dotnet-version: 5.x.x
+
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@master
+      with:
+        dotnet-version: 6.x.x
+
+    - name: Pack Aragas.Extensions.Options.FluentValidation
+      run: dotnet pack src/Aragas.Extensions.Options.FluentValidation.sln --configuration Release -o "./packages" 
+
+    - name: Push to NuGet
+      run: dotnet nuget push "./packages/*.nupkg" -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json
+
+    - name: Push to GPR
+      run: |
+           for f in ./packages/*.nupkg
+           do
+             curl -vX PUT -u "vslee:${{secrets.GITHUB_TOKEN}}" -F package=@$f https://nuget.pkg.github.com/BUTR/
+           done
+      shell: bash

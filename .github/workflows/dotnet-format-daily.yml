@@ -1,0 +1,63 @@
+name: Daily Code Format Check
+
+on:
+  schedule:
+    - cron: 0 0 * * * # Every day at midnight (UTC)
+  workflow_dispatch:
+  
+jobs:
+  dotnet-format:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup .NET 3.1
+      uses: actions/setup-dotnet@master
+      with:
+        dotnet-version: 3.1.x
+
+    - name: Setup .NET 5
+      uses: actions/setup-dotnet@master
+      with:
+        dotnet-version: 5.x.x
+
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@master
+      with:
+        dotnet-version: 6.x.x
+
+    - name: Install dotnet-format
+      run: dotnet tool install -g dotnet-format
+      shell: pwsh
+
+    - name: Run dotnet format
+      id: format
+      uses: jfversluis/dotnet-format@1.0.7
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        action: "fix"
+        #only-changed-files: true # only works for PRs
+        workspace: "src/Aragas.Extensions.Options.FluentValidation.sln"
+    
+    - name: Commit files
+      run: >-
+        if ('${{ steps.format.outputs.has-changes == 'true' }}' -eq '') { Return };
+        git config --local user.name "github-actions[bot]";
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com";
+        git diff-index --quiet HEAD || git commit -a -m 'Automated dotnet-format update';
+      shell: pwsh
+      
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        title: 'Automated PR to fix formatting errors'
+        body: |
+          Automated PR to fix formatting errors
+        committer: GitHub <noreply@github.com>
+        author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+        labels: code-formatting
+        assignees: ${{ inputs.assignees }}
+        reviewers: ${{ inputs.reviewers }}
+        branch: code-formatting/fix-codeformatting
+        delete-branch: true
