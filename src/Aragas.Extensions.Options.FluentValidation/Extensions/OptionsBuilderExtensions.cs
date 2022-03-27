@@ -31,7 +31,7 @@ namespace Aragas.Extensions.Options.FluentValidation.Extensions
             return optionsBuilder;
         }
 
-        public static OptionsBuilder<TOptions> ValidateViaFluentWithHttp<TOptions, TOptionsValidator>(this OptionsBuilder<TOptions> optionsBuilder, Action<IHttpClientBuilder>? httpClientBuilder  = null)
+        public static OptionsBuilder<TOptions> ValidateViaFluentWithHttp<TOptions, TOptionsValidator>(this OptionsBuilder<TOptions> optionsBuilder, Action<IHttpClientBuilder>? httpClientBuilder = null)
             where TOptions : class
             where TOptionsValidator : class, IValidator<TOptions>
         {
