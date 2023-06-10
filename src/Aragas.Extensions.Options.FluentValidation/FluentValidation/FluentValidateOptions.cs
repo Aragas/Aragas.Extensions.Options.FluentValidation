@@ -18,9 +18,9 @@ namespace Aragas.Extensions.Options.FluentValidation.FluentValidation
             _validators = validators ?? throw new ArgumentNullException(nameof(validators));
         }
 
-        public ValidateOptionsResult Validate(string name, TOptions options)
+        public ValidateOptionsResult Validate(string? name, TOptions options)
         {
-            static IEnumerable<string> GetFailures(IEnumerable<IValidator<TOptions>> validators, string name, TOptions options)
+            static IEnumerable<string> GetFailures(IEnumerable<IValidator<TOptions>> validators, string? name, TOptions options)
             {
                 foreach (var validator in validators)
                 {

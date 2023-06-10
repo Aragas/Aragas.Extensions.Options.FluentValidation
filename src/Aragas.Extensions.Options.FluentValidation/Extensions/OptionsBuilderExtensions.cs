@@ -15,7 +15,7 @@ namespace Aragas.Extensions.Options.FluentValidation.Extensions
 {
     public static class OptionsBuilderExtensions
     {
-        public static OptionsBuilder<TOptions> ValidateViaFluent<TOptions, TOptionsValidator>(this OptionsBuilder<TOptions> optionsBuilder)
+        public static OptionsBuilder<TOptions> ValidateViaFluent<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TOptions, TOptionsValidator>(this OptionsBuilder<TOptions> optionsBuilder)
             where TOptions : class
             where TOptionsValidator : class, IValidator<TOptions>
         {
@@ -31,7 +31,7 @@ namespace Aragas.Extensions.Options.FluentValidation.Extensions
             return optionsBuilder;
         }
 
-        public static OptionsBuilder<TOptions> ValidateViaFluentWithHttp<TOptions, TOptionsValidator>(this OptionsBuilder<TOptions> optionsBuilder, Action<IHttpClientBuilder>? httpClientBuilder = null)
+        public static OptionsBuilder<TOptions> ValidateViaFluentWithHttp<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TOptions, TOptionsValidator>(this OptionsBuilder<TOptions> optionsBuilder, Action<IHttpClientBuilder>? httpClientBuilder = null)
             where TOptions : class
             where TOptionsValidator : class, IValidator<TOptions>
         {
