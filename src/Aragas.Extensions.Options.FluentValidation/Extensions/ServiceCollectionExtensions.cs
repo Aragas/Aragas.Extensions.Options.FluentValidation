@@ -12,7 +12,7 @@ namespace Aragas.Extensions.Options.FluentValidation.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static OptionsBuilder<TOptions> AddValidatedOptions<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TOptions, TOptionsValidator>(this IServiceCollection services)
+        public static OptionsBuilder<TOptions> AddValidatedOptions<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TOptions, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TOptionsValidator>(this IServiceCollection services)
             where TOptions : class where TOptionsValidator : class, IValidator<TOptions>
         {
             if (services == null)
@@ -25,7 +25,7 @@ namespace Aragas.Extensions.Options.FluentValidation.Extensions
                 .ValidateViaHostManager();
         }
 
-        public static OptionsBuilder<TOptions> AddValidatedOptionsWithHttp<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]  TOptions, TOptionsValidator>(this IServiceCollection services, Action<IHttpClientBuilder>? httpClientBuilder = null)
+        public static OptionsBuilder<TOptions> AddValidatedOptionsWithHttp<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TOptions, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TOptionsValidator>(this IServiceCollection services, Action<IHttpClientBuilder>? httpClientBuilder = null)
             where TOptions : class where TOptionsValidator : class, IValidator<TOptions>
         {
             if (services == null)
